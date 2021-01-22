@@ -10,18 +10,22 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            float getDamage = 0;
-            float absorbDamade = 10;
-            double money = 100;
-            int killCount = 5;
-            int deathCount = 100;
-            string personName = "Boris";
-            string personClass = "Saber";
-            bool canFly = false;
-            char threatLevel = 'A';
-            bool isRage = true;
-
-
+            int cristal = 0;
+            int goldInAccount = 0;
+            int courseCristal = 30;
+            Console.WriteLine("Добрый день,сколько золотых у вас есть?");
+            goldInAccount = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Cколько кристалов вы хотите купить?");
+            cristal = Convert.ToInt32(Console.ReadLine());
+            if (goldInAccount>=cristal* courseCristal)
+            {
+                goldInAccount -= cristal * courseCristal;
+                Console.WriteLine("Вы получили " + cristal + " кристалов по курсу 30 золотых за кристал");
+                Console.WriteLine("У вас осталось " + goldInAccount + " золотых");
+            }
+            else
+                Console.WriteLine("У вас недостаточно денег,приходите в другой раз");
+            
         }
     }
 }
