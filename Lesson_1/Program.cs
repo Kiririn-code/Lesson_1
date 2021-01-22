@@ -17,9 +17,9 @@ namespace Lesson_1
             int deathCount = 100;
             string personName = "Boris";
             string personClass = "Saber";
-            bool flyAbility = false;
+            bool canFly = false;
             char threatLevel = 'A';
-            bool enуmyRage = true;
+            bool isRage = true;
 
 
         }
