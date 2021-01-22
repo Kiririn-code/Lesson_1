@@ -21,6 +21,7 @@ namespace Lesson_1
             char threatLevel = 'A';
             bool enуmyRage = true;
 
+
         }
     }
 }
