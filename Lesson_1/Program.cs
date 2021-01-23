@@ -10,17 +10,11 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            string exitWord;
-
-            while (true)
+            string exitWord = "";
+            while (exitWord != "exit")
             {
-                Console.Write("Введите слово: ");
+                Console.Write("Введите коловое слово: ");
                 exitWord = Console.ReadLine();
-                if (exitWord=="exit")
-                {
-                    Console.WriteLine("Вы вышли из программы,поздравляем");
-                    break;
-                }
             }
         }
     }
