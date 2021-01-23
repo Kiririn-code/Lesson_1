@@ -10,15 +10,15 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int textCount;
+            int textRepeat;
             string textMassage;
 
             Console.WriteLine("Добрый день,Введите ваше сообщение");
             textMassage = Console.ReadLine();
             Console.WriteLine("Введите количество повторений");
-            textCount = Convert.ToInt32(Console.ReadLine());
+            textRepeat = Convert.ToInt32(Console.ReadLine());
 
-            for (int i = 0; i < textCount; i++)
+            for (int i = 0; i < textRepeat; i++)
             {
                 Console.WriteLine(textMassage);
             }
