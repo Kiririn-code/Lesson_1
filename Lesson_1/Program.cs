@@ -10,17 +10,9 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int textRepeat;
-            string textMassage;
-
-            Console.WriteLine("Добрый день,Введите ваше сообщение");
-            textMassage = Console.ReadLine();
-            Console.WriteLine("Введите количество повторений");
-            textRepeat = Convert.ToInt32(Console.ReadLine());
-
-            for (int i = 0; i < textRepeat; i++)
+            for (int i = 7; i <= 98; i+=7)
             {
-                Console.WriteLine(textMassage);
+                Console.Write(i +" ");
             }
         }
     }
