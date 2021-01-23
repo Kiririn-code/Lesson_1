@@ -10,11 +10,11 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            string UserInput = "";
-            while (UserInput != "exit")
+            string userInput = "";
+            while (userInput != "exit")
             {
                 Console.Write("Введите коловое слово: ");
-                UserInput = Console.ReadLine();
+                userInput = Console.ReadLine();
             }
         }
     }
