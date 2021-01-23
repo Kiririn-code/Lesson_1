@@ -42,9 +42,9 @@ namespace Lesson_1
                 switch (userChoise)
                 {
                     case 1:
-                        if (userRub >= amountOfMoney * 60)
+                        if (userRub >= amountOfMoney /0.0174f)
                         {
-                            userRub -= amountOfMoney * 60;
+                            userRub -= amountOfMoney /0.0174f;
                             userUsd += amountOfMoney;
                         }
                         else
@@ -53,9 +53,9 @@ namespace Lesson_1
                         }
                         break;
                     case 2:
-                        if (userRub >= amountOfMoney * 80)
+                        if (userRub >= amountOfMoney / 0.0111f)
                         {
-                            userRub -= amountOfMoney * 80;
+                            userRub -= amountOfMoney /0.0111f;
                             userEur += amountOfMoney;
                         }
                         else
@@ -64,9 +64,9 @@ namespace Lesson_1
                         }
                         break;
                     case 3:
-                        if (userUsd >= amountOfMoney / 60)
+                        if (userUsd >= amountOfMoney / 74.36f)
                         {
-                            userUsd -= amountOfMoney / 60;
+                            userUsd -= amountOfMoney / 74.36f;
                             userRub += amountOfMoney;
                         }
                         else
@@ -97,9 +97,9 @@ namespace Lesson_1
                         }
                         break;
                     case 6:
-                        if (userEur >= amountOfMoney * 1.22f)
+                        if (userEur >= amountOfMoney* 1.21f)
                         {
-                            userEur -= amountOfMoney * 1.22f;
+                            userEur -= amountOfMoney *1.21f;
                             userUsd += amountOfMoney;
                         }
                         else
