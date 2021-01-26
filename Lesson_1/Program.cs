@@ -14,7 +14,6 @@ namespace Lesson_1
             float userRub;
             float userEur;
             int userChoise;
-            string userAnswer;
             float amountOfMoney;
             bool isProgramExit = true;
             float rubToUsd = 0.0174f,rubToEur = 0.0111f;
@@ -23,6 +22,7 @@ namespace Lesson_1
 
             while (isProgramExit)
             {
+
                 Console.Write("Введите колчиестов рублей ");
                 userRub = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Введите количесто долларов ");
@@ -31,8 +31,8 @@ namespace Lesson_1
                 userEur = Convert.ToInt32(Console.ReadLine());
 
                 Console.WriteLine("Что вы хотите обменять:");
-                Console.WriteLine("1- рубли на доллары");
-                Console.WriteLine("2 -рубли на евро");
+                Console.WriteLine("1 - рубли на доллары");
+                Console.WriteLine("2 - рубли на евро");
                 Console.WriteLine("3 - доллары на рубли");
                 Console.WriteLine("4 - доллары на евро");
                 Console.WriteLine("5 - евро на рубли");
@@ -40,12 +40,10 @@ namespace Lesson_1
                 Console.WriteLine("7 - выйти из программы");
 
                 userChoise = Convert.ToInt32(Console.ReadLine());
-
+                Console.Clear();
                 switch (userChoise)
                 {
                     case 1:
-
-
                         Console.WriteLine("Сколько долларов вы хотите купить:");
                         amountOfMoney = Convert.ToInt32(Console.ReadLine());
                         if (userRub >= amountOfMoney /rubToUsd)
@@ -58,6 +56,7 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+
                     case 2:
                         Console.WriteLine("Сколько евро вы хотите купить:");
                         amountOfMoney = Convert.ToInt32(Console.ReadLine());
@@ -71,6 +70,7 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+
                     case 3:
                         Console.WriteLine("Сколько рублей вы хотите купить:");
                         amountOfMoney = Convert.ToInt32(Console.ReadLine());
@@ -84,6 +84,7 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+
                     case 4:
                         Console.WriteLine("Сколько евро вы хотите купить:");
                         amountOfMoney = Convert.ToInt32(Console.ReadLine());
@@ -97,6 +98,7 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+
                     case 5:
                         Console.WriteLine("Сколько рублей вы хотите купить:");
                         amountOfMoney = Convert.ToInt32(Console.ReadLine());
@@ -110,6 +112,7 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+
                     case 6:
                         Console.WriteLine("Сколько долларов вы хотите купить:");
                         amountOfMoney = Convert.ToInt32(Console.ReadLine());
@@ -123,17 +126,15 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+
                     case 7:
-                        Console.WriteLine("Желаете выйти из программы: Y/N");
-                        userAnswer = Console.ReadLine();
-                        if (userAnswer == "Y" || userAnswer == "y")
-                        {
-                            isProgramExit = false;
-                        }
+                        isProgramExit = false;
                         Console.Clear();
                         break;
                 }
-                Console.WriteLine("Ваш баланс: " + userRub + " рублей ," + userUsd + " долларов, и " + userEur + " евро"); 
+                Console.WriteLine("Ваш баланс: " + userRub + " рублей ," + userUsd + " долларов, и " + userEur + " евро");
+                Console.ReadKey();
+                Console.Clear();
             }
             Console.WriteLine("Всего доброго,спасибо что воспользовались нашими услугами");
         }
