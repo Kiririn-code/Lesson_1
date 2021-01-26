@@ -22,7 +22,6 @@ namespace Lesson_1
 
             while (isProgramExit)
             {
-
                 Console.Write("Введите колчиестов рублей ");
                 userRub = Convert.ToInt32(Console.ReadLine());
                 Console.Write("Введите количесто долларов ");
