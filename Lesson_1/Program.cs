@@ -16,12 +16,12 @@ namespace Lesson_1
             int userChoise;
             string userAnswer;
             float amountOfMoney;
-            bool userOutput = true;
+            bool isProgramExit = true;
             float rubToUsd = 0.0174f,rubToEur = 0.0111f;
             float usdToRub = 74.36f, usdToEur = 0.82f;
             float eurToRub = 91.2f, eurToUsd = 1.21f;
 
-            while (userOutput)
+            while (isProgramExit)
             {
                 Console.Write("Введите колчиестов рублей ");
                 userRub = Convert.ToInt32(Console.ReadLine());
@@ -37,15 +37,17 @@ namespace Lesson_1
                 Console.WriteLine("4 - доллары на евро");
                 Console.WriteLine("5 - евро на рубли");
                 Console.WriteLine("6 - евро на доллары");
+                Console.WriteLine("7 - выйти из программы");
 
                 userChoise = Convert.ToInt32(Console.ReadLine());
-
-                Console.WriteLine("Сколько валюты вы хотите купить");
-                amountOfMoney = Convert.ToInt32(Console.ReadLine());
 
                 switch (userChoise)
                 {
                     case 1:
+
+
+                        Console.WriteLine("Сколько долларов вы хотите купить:");
+                        amountOfMoney = Convert.ToInt32(Console.ReadLine());
                         if (userRub >= amountOfMoney /rubToUsd)
                         {
                             userRub -= amountOfMoney /rubToUsd;
@@ -57,6 +59,8 @@ namespace Lesson_1
                         }
                         break;
                     case 2:
+                        Console.WriteLine("Сколько евро вы хотите купить:");
+                        amountOfMoney = Convert.ToInt32(Console.ReadLine());
                         if (userRub >= amountOfMoney / rubToEur)
                         {
                             userRub -= amountOfMoney /rubToEur;
@@ -68,6 +72,8 @@ namespace Lesson_1
                         }
                         break;
                     case 3:
+                        Console.WriteLine("Сколько рублей вы хотите купить:");
+                        amountOfMoney = Convert.ToInt32(Console.ReadLine());
                         if (userUsd >= amountOfMoney / usdToRub)
                         {
                             userUsd -= amountOfMoney / usdToRub;
@@ -79,10 +85,12 @@ namespace Lesson_1
                         }
                         break;
                     case 4:
-                        if (userUsd >= amountOfMoney * usdToEur)
+                        Console.WriteLine("Сколько евро вы хотите купить:");
+                        amountOfMoney = Convert.ToInt32(Console.ReadLine());
+                        if (userUsd >= amountOfMoney / usdToEur)
                         {
-                            userEur += amountOfMoney * usdToEur;
-                            userUsd -= amountOfMoney;
+                            userUsd -= amountOfMoney / usdToEur;
+                            userEur += amountOfMoney;
                         }
                         else
                         {
@@ -90,6 +98,8 @@ namespace Lesson_1
                         }
                         break;
                     case 5:
+                        Console.WriteLine("Сколько рублей вы хотите купить:");
+                        amountOfMoney = Convert.ToInt32(Console.ReadLine());
                         if (userEur >= amountOfMoney/eurToRub)
                         {
                             userEur -= amountOfMoney/eurToRub;
@@ -101,6 +111,8 @@ namespace Lesson_1
                         }
                         break;
                     case 6:
+                        Console.WriteLine("Сколько долларов вы хотите купить:");
+                        amountOfMoney = Convert.ToInt32(Console.ReadLine());
                         if (userEur >= amountOfMoney/ eurToUsd)
                         {
                             userEur -= amountOfMoney / eurToUsd;
@@ -111,18 +123,17 @@ namespace Lesson_1
                             Console.WriteLine("У вас недостаточно денег,попробуйте еще раз");
                         }
                         break;
+                    case 7:
+                        Console.WriteLine("Желаете выйти из программы: Y/N");
+                        userAnswer = Console.ReadLine();
+                        if (userAnswer == "Y" || userAnswer == "y")
+                        {
+                            isProgramExit = false;
+                        }
+                        Console.Clear();
+                        break;
                 }
-
-                Console.WriteLine("Ваш баланс: " + userRub + " рублей ," + userUsd + " долларов, и " + userEur + " евро");
-
-                Console.WriteLine("Желаете выйти из программы: Y/N");
-                userAnswer =Console.ReadLine();
-                if (userAnswer == "Y" || userAnswer == "y")
-                {
-                    userOutput = false;
-                }
-                Console.Clear();
-
+                Console.WriteLine("Ваш баланс: " + userRub + " рублей ," + userUsd + " долларов, и " + userEur + " евро"); 
             }
             Console.WriteLine("Всего доброго,спасибо что воспользовались нашими услугами");
         }
