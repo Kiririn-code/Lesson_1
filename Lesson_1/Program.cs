@@ -14,10 +14,14 @@ namespace Lesson_1
             float userRub;
             float userEur;
             int userChoise;
+            string userAnswer;
             float amountOfMoney;
-            string userOutput = "";
+            bool userOutput = true;
+            float rubToUsd = 0.0174f,rubToEur = 0.0111f;
+            float usdToRub = 74.36f, usdToEur = 0.82f;
+            float eurToRub = 91.2f, eurToUsd = 1.21f;
 
-            while (userOutput!= "Y" && userOutput!="y" )
+            while (userOutput)
             {
                 Console.Write("Введите колчиестов рублей ");
                 userRub = Convert.ToInt32(Console.ReadLine());
@@ -42,9 +46,9 @@ namespace Lesson_1
                 switch (userChoise)
                 {
                     case 1:
-                        if (userRub >= amountOfMoney /0.0174f)
+                        if (userRub >= amountOfMoney /rubToUsd)
                         {
-                            userRub -= amountOfMoney /0.0174f;
+                            userRub -= amountOfMoney /rubToUsd;
                             userUsd += amountOfMoney;
                         }
                         else
@@ -53,9 +57,9 @@ namespace Lesson_1
                         }
                         break;
                     case 2:
-                        if (userRub >= amountOfMoney / 0.0111f)
+                        if (userRub >= amountOfMoney / rubToEur)
                         {
-                            userRub -= amountOfMoney /0.0111f;
+                            userRub -= amountOfMoney /rubToEur;
                             userEur += amountOfMoney;
                         }
                         else
@@ -64,9 +68,9 @@ namespace Lesson_1
                         }
                         break;
                     case 3:
-                        if (userUsd >= amountOfMoney / 74.36f)
+                        if (userUsd >= amountOfMoney / usdToRub)
                         {
-                            userUsd -= amountOfMoney / 74.36f;
+                            userUsd -= amountOfMoney / usdToRub;
                             userRub += amountOfMoney;
                         }
                         else
@@ -75,9 +79,9 @@ namespace Lesson_1
                         }
                         break;
                     case 4:
-                        if (userUsd >= amountOfMoney * 0.82f)
+                        if (userUsd >= amountOfMoney * usdToEur)
                         {
-                            userEur += amountOfMoney * 0.82f;
+                            userEur += amountOfMoney * usdToEur;
                             userUsd -= amountOfMoney;
                         }
                         else
@@ -86,10 +90,10 @@ namespace Lesson_1
                         }
                         break;
                     case 5:
-                        if (userEur >= amountOfMoney)
+                        if (userEur >= amountOfMoney/eurToRub)
                         {
-                            userEur -= amountOfMoney;
-                            userRub += amountOfMoney * 91.2f;
+                            userEur -= amountOfMoney/eurToRub;
+                            userRub += amountOfMoney;
                         }
                         else
                         {
@@ -97,9 +101,9 @@ namespace Lesson_1
                         }
                         break;
                     case 6:
-                        if (userEur >= amountOfMoney* 1.21f)
+                        if (userEur >= amountOfMoney/ eurToUsd)
                         {
-                            userEur -= amountOfMoney *1.21f;
+                            userEur -= amountOfMoney / eurToUsd;
                             userUsd += amountOfMoney;
                         }
                         else
@@ -112,11 +116,15 @@ namespace Lesson_1
                 Console.WriteLine("Ваш баланс: " + userRub + " рублей ," + userUsd + " долларов, и " + userEur + " евро");
 
                 Console.WriteLine("Желаете выйти из программы: Y/N");
-                userOutput = Console.ReadLine();
+                userAnswer =Console.ReadLine();
+                if (userAnswer == "Y" || userAnswer == "y")
+                {
+                    userOutput = false;
+                }
                 Console.Clear();
 
             }
-
+            Console.WriteLine("Всего доброго,спасибо что воспользовались нашими услугами");
         }
     }
 }
