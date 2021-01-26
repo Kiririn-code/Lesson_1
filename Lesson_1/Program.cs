@@ -12,7 +12,9 @@ namespace Lesson_1
         {
             string userPassword = "";
             string correctPassword = "флекс";
-            for (int i = 3; i >0; i--)
+            int errorCounter = 3;
+
+            for (int i = errorCounter; i >0; i--)
             {
                 Console.WriteLine("Введи параоль,челик");
                 userPassword = Console.ReadLine();
