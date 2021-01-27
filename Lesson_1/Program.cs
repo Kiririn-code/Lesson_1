@@ -10,24 +10,39 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            string userPassword = "";
-            string correctPassword = "флекс";
-            int errorCounter = 3;
+            int maxValue = int.MinValue;
+            int[,] arrayA = new int[10, 10];
+            Random random = new Random();
 
-            for (int i = errorCounter; i >0; i--)
+            for (int i = 0; i < arrayA.GetLength(0); i++)
             {
-                Console.WriteLine("Введи параоль,челик");
-                userPassword = Console.ReadLine();
-                if(userPassword == correctPassword)
+                for (int j = 0; j < arrayA.GetLength(1); j++)
                 {
-                    Console.WriteLine("Молодец,челик,вот ты флексишь");
-                    break;
+                    arrayA[i, j] = random.Next(100, 1000);
+                    if (arrayA[i, j] > maxValue)
+                    {
+                        maxValue = arrayA[i, j];
+                    }
+                    Console.Write(arrayA[i, j] + " ");
                 }
-                else
+                Console.WriteLine();
+            }
+            Console.WriteLine("Самое большое число - " + maxValue);
+
+            Console.WriteLine("Конечный массив");
+
+            for (int i = 0; i < arrayA.GetLength(0); i++)
+            {
+                for (int j = 0; j < arrayA.GetLength(1); j++)
                 {
-                    Console.WriteLine("УуУу,пароль не верный,ну ты кринж");
-                    Console.WriteLine("У тебя осталось " + (i-1)+ " попыток");
+                    if(maxValue == arrayA[i,j])
+                    {
+                        arrayA[i, j] = 0;
+                    }
+
+                    Console.Write(arrayA[i, j] + " ");
                 }
+                Console.WriteLine();
             }
         }
     }
