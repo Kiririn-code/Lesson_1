@@ -14,8 +14,8 @@ namespace Lesson_1
             int[,] array = new int[5, 5];
             int rowsSum = 0;
             int colsProd = 1;
-            int numberOfCols = 0;
-            int numberOfRows = 1;
+            int numberOfCols = 1;
+            int numberOfRows = 2;
 
             for (int i = 0; i < array.GetLength(0); i++)
             {
@@ -23,11 +23,11 @@ namespace Lesson_1
                 {
                     array[i, j] = random.Next(10);
                     Console.Write(array[i,j]);
-                    if (i == numberOfRows)
+                    if (i == numberOfRows - 1)
                     {
                         rowsSum += array[i, j];
                     }
-                    if (j == numberOfCols)
+                    if (j == numberOfCols - 1)
                     {
                         colsProd *= array[i, j];
                     }
