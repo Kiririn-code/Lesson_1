@@ -10,25 +10,33 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            string userPassword = "";
-            string correctPassword = "флекс";
-            int errorCounter = 3;
+            Random random = new Random();
+            int[,] array = new int[5, 5];
+            int rowsSum = 0;
+            int colsProd = 1;
+            int numberOfCols = 0;
+            int numberOfRows = 1;
 
-            for (int i = errorCounter; i >0; i--)
+            for (int i = 0; i < array.GetLength(0); i++)
             {
-                Console.WriteLine("Введи параоль,челик");
-                userPassword = Console.ReadLine();
-                if(userPassword == correctPassword)
+                for (int j = 0; j < array.GetLength(1); j++)
                 {
-                    Console.WriteLine("Молодец,челик,вот ты флексишь");
-                    break;
+                    array[i, j] = random.Next(10);
+                    Console.Write(array[i,j]);
+                    if (i == numberOfRows)
+                    {
+                        rowsSum += array[i, j];
+                    }
+                    if (j == numberOfCols)
+                    {
+                        colsProd *= array[i, j];
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("УуУу,пароль не верный,ну ты кринж");
-                    Console.WriteLine("У тебя осталось " + (i-1)+ " попыток");
-                }
+                Console.WriteLine();
             }
+
+            Console.WriteLine("Произведение первого столбца - " + colsProd);
+            Console.WriteLine("Сумма второй строки - " + rowsSum);
         }
     }
 }
