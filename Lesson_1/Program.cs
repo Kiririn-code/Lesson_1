@@ -13,6 +13,7 @@ namespace Lesson_1
             int maxValue = int.MinValue;
             int[,] arrayA = new int[10, 10];
             Random random = new Random();
+            Console.WriteLine("Начальный массив");
 
             for (int i = 0; i < arrayA.GetLength(0); i++)
             {
@@ -28,8 +29,7 @@ namespace Lesson_1
                 Console.WriteLine();
             }
             Console.WriteLine("Самое большое число - " + maxValue);
-
-            Console.WriteLine("Конечный массив");
+            Console.WriteLine("Измененный массив");
 
             for (int i = 0; i < arrayA.GetLength(0); i++)
             {
@@ -39,7 +39,6 @@ namespace Lesson_1
                     {
                         arrayA[i, j] = 0;
                     }
-
                     Console.Write(arrayA[i, j] + " ");
                 }
                 Console.WriteLine();
