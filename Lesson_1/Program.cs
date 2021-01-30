@@ -10,33 +10,53 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Random random = new Random();
-            int[,] array = new int[5, 5];
-            int rowsSum = 0;
-            int colsProd = 1;
-            int numberOfCols = 1;
-            int numberOfRows = 2;
+            string userAction;
+            bool userOutput = true;
+            int[] array = new int[1];
+            int arraySum = 0;
 
-            for (int i = 0; i < array.GetLength(0); i++)
+            Console.WriteLine("Список комманд:");
+            Console.WriteLine("drop - отчистить массив");
+            Console.WriteLine("sum - вывести сумму элементов ранне введенного массива");
+
+            while (userOutput)
             {
-                for (int j = 0; j < array.GetLength(1); j++)
-                {
-                    array[i, j] = random.Next(10);
-                    Console.Write(array[i,j]);
-                    if (i == numberOfRows - 1)
-                    {
-                        rowsSum += array[i, j];
-                    }
-                    if (j == numberOfCols - 1)
-                    {
-                        colsProd *= array[i, j];
-                    }
-                }
-                Console.WriteLine();
-            }
+                Console.Write("Введите комманду: ");
+                userAction = Console.ReadLine();
 
-            Console.WriteLine("Произведение первого столбца - " + colsProd);
-            Console.WriteLine("Сумма второй строки - " + rowsSum);
+                switch (userAction)
+                {
+                    case ("exit"):
+                        userOutput = false;
+                        Console.WriteLine("Всего ХО-РО-ШЕ-ГО");
+                        break;
+                    case ("sum"):
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            arraySum += array[i];
+                        }
+                        Console.WriteLine("Сумма элементов вашего массива "+arraySum);
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+                    case "drop":
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            array[i] = 0;
+                            arraySum = 0;
+                        }
+                        break;
+                    default:
+                        int[] expArray = new int[array.Length + 1];
+                        for (int i = 0; i < array.Length; i++)
+                        {
+                            expArray[i] = array[i];
+                        }
+                        expArray[expArray.Length - 1] = Convert.ToInt32(userAction);
+                        array = expArray;
+                        break;
+                }
+            }
         }
     }
 }
