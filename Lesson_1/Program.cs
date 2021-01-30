@@ -10,38 +10,29 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int maxValue = int.MinValue;
-            int[,] arrayA = new int[10, 10];
-            Random random = new Random();
-            Console.WriteLine("Начальный массив");
+            int[] array = new int[30];
+           Random random = new Random();
 
-            for (int i = 0; i < arrayA.GetLength(0); i++)
+            for (int i = 0; i < array.Length; i++)
             {
-                for (int j = 0; j < arrayA.GetLength(1); j++)
-                {
-                    arrayA[i, j] = random.Next(100, 1000);
-                    if (arrayA[i, j] > maxValue)
-                    {
-                        maxValue = arrayA[i, j];
-                    }
-                    Console.Write(arrayA[i, j] + " ");
-                }
-                Console.WriteLine();
+                array[i] = random.Next(50);
+                Console.WriteLine($"элемент - {(i+1)} Число - {array[i]}");
             }
-            Console.WriteLine("Самое большое число - " + maxValue);
-            Console.WriteLine("Измененный массив");
 
-            for (int i = 0; i < arrayA.GetLength(0); i++)
+            for (int i = 1; i < array.Length-1; i++)
             {
-                for (int j = 0; j < arrayA.GetLength(1); j++)
+                if (array[i] > array[i - 1] && array[i] > array[i + 1])
                 {
-                    if(maxValue == arrayA[i,j])
-                    {
-                        arrayA[i, j] = 0;
-                    }
-                    Console.Write(arrayA[i, j] + " ");
+                    Console.WriteLine($"Локальный максимум обнаружен под номером {i+1}");
                 }
-                Console.WriteLine();
+            }
+            if (array[0] > array[1])
+            {
+                Console.WriteLine("Локальный максимум обнаружен под номером 1");
+            }
+            if (array[array.Length-1] > array[array.Length-2])
+            {
+                Console.WriteLine($"Локальный максимум обнаружен под номером {array.Length}");
             }
         }
     }
