@@ -11,15 +11,14 @@ namespace Lesson_1
         static void Main(string[] args)
         {
             string userAction;
-            bool userOutput = true;
+            bool isProgramRun = true;
             int[] array = new int[1];
             int arraySum = 0;
 
             Console.WriteLine("Список комманд:");
-            Console.WriteLine("drop - отчистить массив");
             Console.WriteLine("sum - вывести сумму элементов ранне введенного массива");
 
-            while (userOutput)
+            while (isProgramRun)
             {
                 Console.Write("Введите комманду: ");
                 userAction = Console.ReadLine();
@@ -27,7 +26,7 @@ namespace Lesson_1
                 switch (userAction)
                 {
                     case ("exit"):
-                        userOutput = false;
+                        isProgramRun = false;
                         Console.WriteLine("Всего ХО-РО-ШЕ-ГО");
                         break;
                     case ("sum"):
@@ -39,21 +38,14 @@ namespace Lesson_1
                         Console.ReadKey();
                         Console.Clear();
                         break;
-                    case "drop":
-                        for (int i = 0; i < array.Length; i++)
-                        {
-                            array[i] = 0;
-                            arraySum = 0;
-                        }
-                        break;
                     default:
-                        int[] expArray = new int[array.Length + 1];
+                        int[] expandArray = new int[array.Length + 1];
                         for (int i = 0; i < array.Length; i++)
                         {
-                            expArray[i] = array[i];
+                            expandArray[i] = array[i];
                         }
-                        expArray[expArray.Length - 1] = Convert.ToInt32(userAction);
-                        array = expArray;
+                        expandArray[expandArray.Length - 1] = Convert.ToInt32(userAction);
+                        array = expandArray;
                         break;
                 }
             }
