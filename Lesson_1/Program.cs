@@ -44,13 +44,13 @@ namespace Lesson_1
                     default:
                         try
                         {
-                            int newElementOfArray = Convert.ToInt32(userAction);
+                            int newElementArray = Convert.ToInt32(userAction);
                             int[] expandArray = new int[array.Length + 1];
                             for (int i = 0; i < array.Length; i++)
                             {
                                 expandArray[i] = array[i];
                             }
-                            expandArray[expandArray.Length - 1] =newElementOfArray ;
+                            expandArray[expandArray.Length - 1] =newElementArray;
                             array = expandArray;
                         }
                         catch(Exception)
