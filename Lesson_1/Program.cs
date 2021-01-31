@@ -17,11 +17,12 @@ namespace Lesson_1
 
             Console.WriteLine("Список комманд:");
             Console.WriteLine("sum - вывести сумму элементов ранне введенного массива");
+            Console.WriteLine("exit - выйти из программы");
 
             while (isProgramRun)
             {
                 Console.Write("Введите комманду: ");
-                userAction = Console.ReadLine();
+                userAction = Console.ReadLine().ToLower();
 
                 switch (userAction)
                 {
