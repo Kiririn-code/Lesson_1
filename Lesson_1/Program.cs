@@ -10,18 +10,18 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int fullHealth = 100;
-            int currentHealth = 50;
-
-            DrawBar(fullHealth,currentHealth,ConsoleColor.Red);
+            int fullHealth = 10;
+            int currentHealth = 5;
+            int healthDivider = 1;
+            DrawBar(fullHealth,currentHealth,healthDivider,ConsoleColor.Red);
         }
 
-        static void DrawBar(int fullHealth, int currentHealth, ConsoleColor consoleColor)
+        static void DrawBar(int fullHealth, int currentHealth, int healthDivider, ConsoleColor consoleColor)
         {
             ConsoleColor defaultColor = Console.BackgroundColor;
             string bar = "";
 
-            for (int i = 0; i < currentHealth/10; i++)
+            for (int i = 0; i < currentHealth / healthDivider; i++)
             {
                 bar += "#";
             }
@@ -32,7 +32,7 @@ namespace Lesson_1
             Console.BackgroundColor = defaultColor;
             bar = "";
 
-            for (int i = currentHealth/10; i < fullHealth/10; i++)
+            for (int i = currentHealth/healthDivider; i < fullHealth / healthDivider; i++)
             {
                 bar += "_";
             }
