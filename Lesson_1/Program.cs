@@ -10,10 +10,10 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Вы ввели число - " + ConvertNumber());
+            Console.WriteLine("Вы ввели число - " + ReadInt());
         }
 
-        static int ConvertNumber()
+        static int ReadInt()
         {
             int userNumber =0;
             string userInput;
