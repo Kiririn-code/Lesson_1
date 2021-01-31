@@ -10,30 +10,34 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int[] array = new int[30];
-            Random random = new Random();
+            int fullHealth = 100;
+            int currentHealth = 50;
 
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = random.Next(50);
-                Console.WriteLine($"элемент - {(i + 1)} Число - {array[i]}");
-            }
-            if (array[0] >= array[1])
-            {
-                Console.WriteLine($"Локальный максимум {array[0]} обнаружен под номером 1");
-            }
+            DrawBar(fullHealth,currentHealth,ConsoleColor.Red);
+        }
 
-            for (int i = 1; i < array.Length - 1; i++)
+        static void DrawBar(int fullHealth, int currentHealth, ConsoleColor consoleColor)
+        {
+            ConsoleColor defaultColor = Console.BackgroundColor;
+            string bar = "";
+
+            for (int i = 0; i < currentHealth/10; i++)
             {
-                if (array[i] >= array[i - 1] && array[i] >= array[i + 1])
-                {
-                    Console.WriteLine($"Локальный максимум {array[i]} обнаружен под номером {i + 1}");
-                }
+                bar += "#";
             }
-            if (array[array.Length - 1] >= array[array.Length - 2])
+            Console.SetCursorPosition(0, 20);
+            Console.Write('[');
+            Console.BackgroundColor = consoleColor;
+            Console.Write(bar);
+            Console.BackgroundColor = defaultColor;
+            bar = "";
+
+            for (int i = currentHealth/10; i < fullHealth/10; i++)
             {
-                Console.WriteLine($"Локальный максимум {array[array.Length-1]} обнаружен под номером {array.Length}");
+                bar += "_";
             }
+            Console.Write(bar);
+            Console.Write(']');
         }
     }
 }
