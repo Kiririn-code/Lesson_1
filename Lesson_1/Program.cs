@@ -36,6 +36,7 @@ namespace Lesson_1
                             arraySum += array[i];
                         }
                         Console.WriteLine("Сумма элементов вашего массива "+arraySum);
+                        arraySum = 0;
                         Console.ReadKey();
                         Console.Clear();
                         break;
@@ -43,13 +44,13 @@ namespace Lesson_1
                     default:
                         try
                         {
-                            int elementOfArray = Convert.ToInt32(userAction);
+                            int newElementOfArray = Convert.ToInt32(userAction);
                             int[] expandArray = new int[array.Length + 1];
                             for (int i = 0; i < array.Length; i++)
                             {
                                 expandArray[i] = array[i];
                             }
-                            expandArray[expandArray.Length - 1] =elementOfArray ;
+                            expandArray[expandArray.Length - 1] =newElementOfArray ;
                             array = expandArray;
                         }
                         catch(Exception)
