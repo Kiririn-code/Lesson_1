@@ -12,7 +12,7 @@ namespace Lesson_1
         {
             string userAction;
             bool isProgramRun = true;
-            int[] array = new int[1];
+            int[] array = new int[0];
             int arraySum = 0;
 
             Console.WriteLine("Список комманд:");
@@ -25,11 +25,11 @@ namespace Lesson_1
 
                 switch (userAction)
                 {
-                    case ("exit"):
+                    case "exit":
                         isProgramRun = false;
                         Console.WriteLine("Всего ХО-РО-ШЕ-ГО");
                         break;
-                    case ("sum"):
+                    case "sum":
                         for (int i = 0; i < array.Length; i++)
                         {
                             arraySum += array[i];
@@ -38,7 +38,16 @@ namespace Lesson_1
                         Console.ReadKey();
                         Console.Clear();
                         break;
-                    default:
+                    case "1":
+                    case "2":
+                    case "3":
+                    case "4":
+                    case "5":
+                    case "6":
+                    case "7":
+                    case "8":
+                    case "9":
+                    case "0":
                         int[] expandArray = new int[array.Length + 1];
                         for (int i = 0; i < array.Length; i++)
                         {
@@ -46,6 +55,9 @@ namespace Lesson_1
                         }
                         expandArray[expandArray.Length - 1] = Convert.ToInt32(userAction);
                         array = expandArray;
+                        break;
+                    default:
+                        Console.WriteLine("Я не знаю,что вы написали");
                         break;
                 }
             }
