@@ -10,56 +10,28 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            string userAction;
-            bool isProgramRun = true;
-            int[] array = new int[0];
-            int arraySum = 0;
+            int sum = 0;
+            Queue<int> purchase = new Queue<int>();
 
-            Console.WriteLine("Список комманд:");
-            Console.WriteLine("sum - вывести сумму элементов ранне введенного массива");
-            Console.WriteLine("exit - выйти из программы");
+            purchase.Enqueue(0);
+            purchase.Enqueue(4);
+            purchase.Enqueue(2);
+            purchase.Enqueue(5);
+            purchase.Enqueue(7);
+            purchase.Enqueue(9);
+            purchase.Enqueue(100);
+            purchase.Enqueue(150);
+            purchase.Enqueue(200);
 
-            while (isProgramRun)
-            {
-                Console.Write("Введите комманду: ");
-                userAction = Console.ReadLine().ToLower();
 
-                switch (userAction)
-                {
-                    case "exit":
-                        isProgramRun = false;
-                        Console.WriteLine("Всего ХО-РО-ШЕ-ГО");
-                        break;
-                    case "sum":
-                        for (int i = 0; i < array.Length; i++)
-                        {
-                            arraySum += array[i];
-                        }
-                        Console.WriteLine("Сумма элементов вашего массива "+arraySum);
-                        arraySum = 0;
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-
-                    default:
-                        try
-                        {
-                            int newElementArray = Convert.ToInt32(userAction);
-                            int[] expandArray = new int[array.Length + 1];
-                            for (int i = 0; i < array.Length; i++)
-                            {
-                                expandArray[i] = array[i];
-                            }
-                            expandArray[expandArray.Length - 1] =newElementArray;
-                            array = expandArray;
-                        }
-                        catch(Exception)
-                        {
-                            Console.WriteLine("Введены не корректные данные");
-                        }   
-                        break;
-                }
+            while(purchase.Count>0)
+            { 
+                sum += purchase.Dequeue();
+                Console.WriteLine(sum);
+                Console.ReadKey();
+                Console.Clear();
             }
+                    
         }
     }
 }
