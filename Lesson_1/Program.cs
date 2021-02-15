@@ -17,19 +17,19 @@ namespace Lesson_1
     public class Player 
     {
         private string _race;
-        public string Name;
-        public int Age;
+        public string _name;
+        public int _age;
 
         public Player(string race, string name, int age)
         {
             _race = race;
-            Name = name;
-            Age = age;
+            _name = name;
+            _age = age;
         }
 
         public void ShowInfo()
         {
-            Console.WriteLine($"Вас зовоут {Name} Вы {_race} и Вам {Age} лет");
+            Console.WriteLine($"Вас зовоут {_name} Вы {_race} и Вам {_age} лет");
         }
     }
 
