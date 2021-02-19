@@ -12,35 +12,26 @@ namespace Lesson_1
         {
             Player player = new Player(5, 1);
             Drawer drawer = new Drawer();
-            drawer.DrawPlayer(player.GetY(), player.GetX());
+            drawer.DrawPlayer(player);
         }
     }
     class Player
     {
-        private int _x;
-        private int _y;
-
-        public int GetX()
-        {
-            return _x;
-        }
-        public int GetY()
-        {
-            return _y;
-        }
-
+        public int X { get; private set; }
+        public int Y { get; private set; }
         public Player(int x, int y)
         {
-            _x = x;
-            _y = y;
+            X = x;
+            Y = y;
         }
     }
 
     class Drawer
     {
-        public void DrawPlayer(int x, int y)
-        {
-            Console.SetCursorPosition(y, x);
+
+        public void DrawPlayer(Player player)
+        { 
+            Console.SetCursorPosition(player.X,player.Y);
             Console.WriteLine("@");
             Console.CursorVisible = false;
             Console.ReadKey(true);
