@@ -10,27 +10,41 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Player player = new Player("эльф", "Аристарх", 22);
-            player.ShowInfo();
+            Player player = new Player(5, 1);
+            Drawer drawer = new Drawer();
+            drawer.DrawPlayer(player.GetY(), player.GetX());
         }
     }
-    public class Player 
+    class Player
     {
-        private string _race;
-        public string _name;
-        public int _age;
+        private int _x;
+        private int _y;
 
-        public Player(string race, string name, int age)
+        public int GetX()
         {
-            _race = race;
-            _name = name;
-            _age = age;
+            return _x;
+        }
+        public int GetY()
+        {
+            return _y;
         }
 
-        public void ShowInfo()
+        public Player(int x, int y)
         {
-            Console.WriteLine($"Вас зовоут {_name} Вы {_race} и Вам {_age} лет");
+            _x = x;
+            _y = y;
         }
     }
 
+    class Drawer
+    {
+        public void DrawPlayer(int x, int y)
+        {
+            Console.SetCursorPosition(y, x);
+            Console.WriteLine("@");
+            Console.CursorVisible = false;
+            Console.ReadKey(true);
+            
+        }
+    }
 }
