@@ -10,34 +10,63 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int fullHealth = 10;
-            int currentHealth = 5;
-            int healthDivider = 1;
-            DrawBar(fullHealth,currentHealth,healthDivider,ConsoleColor.Red);
+            Vendor vendor = new Vendor();
+            Player player = new Player();
+
+            string userChoise;
+            while (true)
+            {
+                userChoise = Console.ReadLine();
+                switch (userChoise)
+                {
+                    case "show":
+                        vendor.ShowItem();
+                        break;
+                    case "bye":
+                        
+                        break;
+                    case "inv":
+                        break;
+                }
+            }
         }
 
-        static void DrawBar(int fullHealth, int currentHealth, int healthDivider, ConsoleColor consoleColor)
+    }
+    
+    class Vendor
+    {
+        private float _money;
+        public List<Item> items = new List<Item>(); 
+        public void ShowItem()
         {
-            ConsoleColor defaultColor = Console.BackgroundColor;
-            string bar = "";
-
-            for (int i = 0; i < currentHealth / healthDivider; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                bar += "#";
+                items[i].ShowStats();
             }
-            Console.SetCursorPosition(0, 20);
-            Console.Write('[');
-            Console.BackgroundColor = consoleColor;
-            Console.Write(bar);
-            Console.BackgroundColor = defaultColor;
-            bar = "";
+        }
+        
+    }
+    class Player
+    {
+        private float _money;
+        private List<Item> items = new List<Item>();
+    }
+    class Item
+    {
+        private int _id;
+        private string _name;
+        private float _coast;
 
-            for (int i = currentHealth/healthDivider; i < fullHealth / healthDivider; i++)
-            {
-                bar += "_";
-            }
-            Console.Write(bar);
-            Console.Write(']');
+        public Item(int iD,string name,float coast)
+        {
+            _id = iD;
+            _name = name;
+            _coast = coast;
+        }
+
+        public void ShowStats()
+        {
+            Console.WriteLine($"Название: {_name} цена - {_coast} гривен");
         }
     }
 }
