@@ -10,24 +10,37 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Вы ввели число - " + ReadInt());
+            Player player = new Player("bob", 120, false, 001);
+            int banID = int.Parse(Console.ReadLine());
+        }
+    }
+    class Player
+    {
+        private string _name;
+        private int _lvl;
+        private bool _isBanned;
+        private int _id;
+
+        public int GetID()
+        {
+            return _id;
         }
 
-        static int ReadInt()
+        public Player( string name, int lvl, bool isBanned,int id)
         {
-            int userNumber =0;
-            string userInput;
-            bool convertIsFallen = true;
-            while(convertIsFallen)
+            _name = name;
+            _lvl = lvl;
+            _isBanned = isBanned;
+            _id = id;
+        }
+
+        public void Ban()
+        {
+            if(_isBanned = false)
             {
-                Console.Write("Введите число для конвертации - ");
-                userInput = Console.ReadLine();
-                if (int.TryParse(userInput, out userNumber))
-                {
-                    convertIsFallen = false;
-                }
+                _isBanned = true;
+                Console.WriteLine("Пользователь забанен");
             }
-            return userNumber;
         }
     }
 }
