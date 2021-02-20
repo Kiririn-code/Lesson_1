@@ -10,12 +10,11 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int iD;
+            int id = 0;
             int lvl;
             string firstName;
             bool isProgramRun = true;
-            List<Player> players = new List<Player>();
-
+            DataBase dataBase = new DataBase();
             while (isProgramRun)
             {
                 Console.WriteLine("Выберете действия");
@@ -27,18 +26,38 @@ namespace Lesson_1
                         firstName = Console.ReadLine();
                         Console.Write("Уровень: ");
                         lvl = int.Parse(Console.ReadLine());
-                        Console.Write("ID: ");
-                        iD = int.Parse(Console.ReadLine());
-                        players.Add(new Player(firstName, lvl, iD));
+                        dataBase.AddList(firstName, lvl, ++id);
                         break;
                     case "ban":
-                        players[FindID(players)].Ban();
+                        try
+                        {
+                            dataBase.Ban();
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Ошибка удаления.");
+                        }
+
                         break;
                     case "unban":
-                        players[FindID(players)].Unban();
+                        try
+                        {
+                            dataBase.Unban();
+                        }
+                        catch (Exception)
+                        {
+                            Console.WriteLine("Ошибка удаления.");
+                        }
                         break;
                     case "del":
-                        players.RemoveAt(FindID(players));
+                        try
+                        {
+                            dataBase.DeletePlayer();
+                        }
+                        catch(Exception)
+                        {
+                            Console.WriteLine("Ошибка удаления.");
+                        }
                         break;
                     case "exit":
                         isProgramRun = false;
@@ -47,21 +66,59 @@ namespace Lesson_1
             }
         }
 
-        public static int FindID(List<Player> players)
-        {
-            int playerID = int.Parse(Console.ReadLine());
+        
+    }
 
-            for (int i =0; i < players.Count; i++)
+    class DataBase
+    {
+       private List<Player> _players = new List<Player>();
+        public void AddList(string firstName, int lvl, int id)
+        {
+            _players.Add(new Player(firstName, lvl, id));
+        }
+
+        public void Ban()
+        {
+            _players[FindID(_players)].Ban();
+        }
+
+        public void Unban()
+        {
+           _players[FindID(_players)].Unban();
+        }
+
+        public void DeletePlayer()
+        {
+
+            _players.RemoveAt(FindID(_players));
+            
+        }
+
+        private int FindID(List<Player> players)
+        {
+            int playerID = 0;
+            bool IsParseOK = int.TryParse(Console.ReadLine(), out int value);
+            if (IsParseOK && value <= players[players.Count-1].ID)
             {
-                if (players[i].ID == playerID)
+                for (int i = 0; i < players.Count; i++)
                 {
-                    playerID = i;
-                    break;
+                    if (players[i].ID == value)
+                    {
+                        playerID = i;
+                        break;
+                    }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Пользователь с таким ID не найден");
+                playerID = int.MaxValue;
             }
             return playerID;
         }
     }
+
+
     class Player
     {
         private string _name;
