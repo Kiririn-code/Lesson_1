@@ -37,7 +37,6 @@ namespace Lesson_1
                             dataBase.Unban();
                         break;
                     case "del":
-                        ;
                         if (dataBase.TryFindID())
                             dataBase.DeletePlayer();
                         break;
