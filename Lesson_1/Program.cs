@@ -12,9 +12,9 @@ namespace Lesson_1
         {
             Vendor vendor = new Vendor(1000);
             Player player = new Player(300);
-
+            bool isProgramRun = true;
             string userChoise;
-            while (true)
+            while (isProgramRun)
             {
                 userChoise = Console.ReadLine();
                 switch (userChoise)
@@ -35,10 +35,15 @@ namespace Lesson_1
                             Console.WriteLine($"Покупка совершена Осталось - {player.GetMoney()} гривен");
                         }
                         else
+                        {
                             Console.WriteLine("Такого предмета еще не сущестует");
+                        }
                         break;
                     case "inv":
                         player.ShowItem();
+                        break;
+                    case "ext":
+                        isProgramRun = false;
                         break;
                 }
             }
@@ -56,6 +61,7 @@ namespace Lesson_1
         {
             Money = money;
         }
+
         public void ShowItem()
         {
             for (int i = 0; i < Items.Count; i++)
