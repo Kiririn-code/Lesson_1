@@ -29,14 +29,15 @@ namespace Lesson_1
                         dataBase.AddList(firstName, lvl, ++id);
                         break;
                     case "ban":
-                        if(dataBase.TryFindID())
-                             dataBase.Ban();
+                        if (dataBase.TryFindID())
+                            dataBase.Ban();
                         break;
                     case "unban":
                         if (dataBase.TryFindID())
                             dataBase.Unban();
                         break;
-                    case "del":;
+                    case "del":
+                        ;
                         if (dataBase.TryFindID())
                             dataBase.DeletePlayer();
                         break;
@@ -60,20 +61,17 @@ namespace Lesson_1
 
         public void Ban()
         {
-
             _players[_playerID].Ban();
         }
 
         public void Unban()
         {
-           _players[_playerID].Unban();
+            _players[_playerID].Unban();
         }
 
         public void DeletePlayer()
         {
-
-          _players.RemoveAt(_playerID);
-            
+            _players.RemoveAt(_playerID);
         }
 
         public bool TryFindID()
@@ -81,7 +79,7 @@ namespace Lesson_1
             bool isIndexFind = false;
             string playerID = Console.ReadLine();
             Console.WriteLine("Введите ID игрока: ");
-            bool isConverted = int.TryParse(playerID, out int value) && value <= _players[_players.Count -1].ID;
+            bool isConverted = int.TryParse(playerID, out int value) && value <= _players[_players.Count - 1].ID;
             if (isConverted)
             {
                 for (int i = 0; i < _players.Count; i++)
