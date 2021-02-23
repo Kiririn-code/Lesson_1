@@ -29,35 +29,16 @@ namespace Lesson_1
                         dataBase.AddList(firstName, lvl, ++id);
                         break;
                     case "ban":
-                        try
-                        {
-                            dataBase.Ban();
-                        }
-                        catch (Exception)
-                        {
-                            Console.WriteLine("Ошибка удаления.");
-                        }
-
+                        if(dataBase.TryFindID())
+                             dataBase.Ban();
                         break;
                     case "unban":
-                        try
-                        {
+                        if (dataBase.TryFindID())
                             dataBase.Unban();
-                        }
-                        catch (Exception)
-                        {
-                            Console.WriteLine("Ошибка удаления.");
-                        }
                         break;
-                    case "del":
-                        try
-                        {
+                    case "del":;
+                        if (dataBase.TryFindID())
                             dataBase.DeletePlayer();
-                        }
-                        catch(Exception)
-                        {
-                            Console.WriteLine("Ошибка удаления.");
-                        }
                         break;
                     case "exit":
                         isProgramRun = false;
@@ -65,13 +46,13 @@ namespace Lesson_1
                 }
             }
         }
-
-        
     }
 
     class DataBase
     {
-       private List<Player> _players = new List<Player>();
+        private int _playerID;
+        private List<Player> _players = new List<Player>();
+
         public void AddList(string firstName, int lvl, int id)
         {
             _players.Add(new Player(firstName, lvl, id));
@@ -79,42 +60,45 @@ namespace Lesson_1
 
         public void Ban()
         {
-            _players[FindID(_players)].Ban();
+
+            _players[_playerID].Ban();
         }
 
         public void Unban()
         {
-           _players[FindID(_players)].Unban();
+           _players[_playerID].Unban();
         }
 
         public void DeletePlayer()
         {
 
-            _players.RemoveAt(FindID(_players));
+          _players.RemoveAt(_playerID);
             
         }
 
-        private int FindID(List<Player> players)
+        public bool TryFindID()
         {
-            int playerID = 0;
-            bool IsParseOK = int.TryParse(Console.ReadLine(), out int value);
-            if (IsParseOK && value <= players[players.Count-1].ID)
+            bool isIndexFind = false;
+            string playerID = Console.ReadLine();
+            Console.WriteLine("Введите ID игрока: ");
+            bool isConverted = int.TryParse(playerID, out int value) && value <= _players[_players.Count -1].ID;
+            if (isConverted)
             {
-                for (int i = 0; i < players.Count; i++)
+                for (int i = 0; i < _players.Count; i++)
                 {
-                    if (players[i].ID == value)
+                    isIndexFind = _players[i].ID == value;
+                    if (_players[i].ID == value)
                     {
-                        playerID = i;
+                        _playerID = i;
                         break;
                     }
                 }
             }
             else
             {
-                Console.WriteLine("Пользователь с таким ID не найден");
-                playerID = int.MaxValue;
+                Console.WriteLine("Проверьте введенные данные");
             }
-            return playerID;
+            return isIndexFind;
         }
     }
 
