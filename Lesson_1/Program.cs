@@ -10,8 +10,8 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Vendor vendor = new Vendor();
-            Player player = new Player();
+            Vendor vendor = new Vendor(1000);
+            Player player = new Player(300);
 
             string userChoise;
             while (true)
@@ -19,54 +19,117 @@ namespace Lesson_1
                 userChoise = Console.ReadLine();
                 switch (userChoise)
                 {
+                    case "add":
+                        vendor.AddItems();
+                        break;
                     case "show":
                         vendor.ShowItem();
                         break;
-                    case "bye":
-                        
+                    case "buy":
+                        Console.Write("Id: ");
+                        int id = int.Parse(Console.ReadLine());
+                        Item item = vendor.GetItem(id);
+                        if (item != null && player.GetMoney() >= item.Coast)
+                        {
+                            player.BuyItem(item);
+                            Console.WriteLine($"Покупка совершена Осталось - {player.GetMoney()} гривен");
+                        }
+                        else
+                            Console.WriteLine("Такого предмета еще не сущестует");
                         break;
                     case "inv":
+                        player.ShowItem();
                         break;
                 }
             }
         }
 
     }
-    
-    class Vendor
+
+
+    abstract class Human
     {
-        private float _money;
-        public List<Item> items = new List<Item>(); 
+        protected float Money {get; set; }
+        protected List<Item> Items = new List<Item>();
+
+        public Human(int money)
+        {
+            Money = money;
+        }
         public void ShowItem()
         {
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < Items.Count; i++)
             {
-                items[i].ShowStats();
+                Items[i].ShowStats();
             }
         }
-        
     }
-    class Player
-    {
-        private float _money;
-        private List<Item> items = new List<Item>();
-    }
-    class Item
+
+    class Vendor : Human
     {
         private int _id;
-        private string _name;
-        private float _coast;
 
-        public Item(int iD,string name,float coast)
+        public Vendor(int money) : base(money) { }
+
+        public void AddItems()
         {
-            _id = iD;
+            Console.Write("name: ");
+            string itemName = Console.ReadLine();
+            Console.Write("Coast: ");
+            int coast = int.Parse(Console.ReadLine());
+            Items.Add(new Item(++_id, itemName, coast));
+        }
+
+        public Item GetItem(int id)
+        {
+            Item item =null;
+            for (int i = 0; i < Items.Count; i++)
+            {
+                if (Items[i].Id == id)
+                {
+                    item = Items[i];
+                    Money += Items[i].Coast;
+                    Items.RemoveAt(i);
+                    break;
+                }
+            }
+            return item;
+        }
+    }
+
+    class Player:Human
+    {
+        public Player(int money): base(money) { }
+
+        public void BuyItem(Item item)
+        {
+            Items.Add(item);
+            Money -= item.Coast;
+        }
+
+        public float GetMoney()
+        {
+            return Money;
+        }
+    }
+
+    class Item
+    {
+        
+        private string _name;
+        public int Id { get;private set; }
+        public float Coast { get; set; }
+
+        public Item(int id,string name,float coast)
+        {
+            Id = id;
             _name = name;
-            _coast = coast;
+            Coast = coast;
         }
 
         public void ShowStats()
         {
-            Console.WriteLine($"Название: {_name} цена - {_coast} гривен");
+            Console.WriteLine($"{Id} - Название: {_name} цена - {Coast} гривен");
         }
     }
 }
