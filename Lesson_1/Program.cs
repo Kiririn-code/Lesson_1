@@ -10,8 +10,7 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Vendor vendor = new Vendor(1000);
-            Player player = new Player(300);
+            Shop shop = new Shop();
             bool isProgramRun = true;
             string userChoise;
             while (isProgramRun)
@@ -20,27 +19,16 @@ namespace Lesson_1
                 switch (userChoise)
                 {
                     case "add":
-                        vendor.AddItems();
+                        shop.AddItems();
                         break;
                     case "show":
-                        vendor.ShowItem();
+                        shop.ShowItems();
                         break;
                     case "buy":
-                        Console.Write("Id: ");
-                        int id = int.Parse(Console.ReadLine());
-                        Item item = vendor.GetItem(id);
-                        if (item != null && player.GetMoney() >= item.Coast)
-                        {
-                            player.BuyItem(item);
-                            Console.WriteLine($"Покупка совершена Осталось - {player.GetMoney()} гривен");
-                        }
-                        else
-                        {
-                            Console.WriteLine("Такого предмета еще не сущестует");
-                        }
+                        shop.BuyItem();
                         break;
                     case "inv":
-                        player.ShowItem();
+                        shop.ShowInventory();
                         break;
                     case "ext":
                         isProgramRun = false;
@@ -51,10 +39,47 @@ namespace Lesson_1
 
     }
 
+    class Shop
+    {
+       private Vendor vendor = new Vendor(1000);
+       private Player player = new Player(300);
+
+
+        public void AddItems()
+        {
+            vendor.AddItems();
+        }
+
+        public void ShowItems()
+        {
+            vendor.ShowItem();
+        }
+
+        public void ShowInventory()
+        {
+            player.ShowItem();
+        }
+
+        public void BuyItem()
+        {
+            Console.Write("Id: ");
+            int id = int.Parse(Console.ReadLine());
+            Item item = vendor.GetItem(id, (player.GetMoney()));
+            if (item != null && player.GetMoney() >= item.Coast)
+            {
+                player.BuyItem(item);
+                Console.WriteLine($"Покупка совершена Осталось - {player.GetMoney()} гривен");
+            }
+            else
+            {
+                Console.WriteLine("Ошибка,проверьте правильность введенных данных");
+            }
+        }
+    }
 
     abstract class Human
     {
-        protected float Money {get; set; }
+        protected float Money {get; private set; }
         protected List<Item> Items = new List<Item>();
 
         public Human(int money)
@@ -68,6 +93,16 @@ namespace Lesson_1
             {
                 Items[i].ShowStats();
             }
+        }
+
+        public void GetMoney(float money)
+        {
+            Money += money;
+        }
+
+        public void AwayMoney(float money)
+        {
+            Money -= money;
         }
     }
 
@@ -86,15 +121,15 @@ namespace Lesson_1
             Items.Add(new Item(++_id, itemName, coast));
         }
 
-        public Item GetItem(int id)
+        public Item GetItem(int id,float playerMoney)
         {
             Item item =null;
             for (int i = 0; i < Items.Count; i++)
             {
-                if (Items[i].Id == id)
+                if (Items[i].Id == id && playerMoney>= Items[i].Coast)
                 {
                     item = Items[i];
-                    Money += Items[i].Coast;
+                    GetMoney(Items[i].Coast);
                     Items.RemoveAt(i);
                     break;
                 }
@@ -110,7 +145,7 @@ namespace Lesson_1
         public void BuyItem(Item item)
         {
             Items.Add(item);
-            Money -= item.Coast;
+            AwayMoney(item.Coast);
         }
 
         public float GetMoney()
@@ -124,7 +159,7 @@ namespace Lesson_1
         
         private string _name;
         public int Id { get;private set; }
-        public float Coast { get; set; }
+        public float Coast { get; private set; }
 
         public Item(int id,string name,float coast)
         {
