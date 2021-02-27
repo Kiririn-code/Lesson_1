@@ -41,34 +41,34 @@ namespace Lesson_1
 
     class Shop
     {
-       private Vendor vendor = new Vendor(1000);
-       private Player player = new Player(300);
+       private Vendor _vendor = new Vendor(1000);
+       private Player _player = new Player(300);
 
 
         public void AddItems()
         {
-            vendor.AddItems();
+            _vendor.AddItems();
         }
 
         public void ShowItems()
         {
-            vendor.ShowItem();
+            _vendor.ShowItem();
         }
 
         public void ShowInventory()
         {
-            player.ShowItem();
+            _player.ShowItem();
         }
 
         public void BuyItem()
         {
             Console.Write("Id: ");
             int id = int.Parse(Console.ReadLine());
-            Item item = vendor.GetItem(id, (player.GetMoney()));
-            if (item != null && player.GetMoney() >= item.Coast)
+            Item item = _vendor.GetItem(id, (_player.GetMoney()));
+            if (item != null && _player.GetMoney() >= item.Coast)
             {
-                player.BuyItem(item);
-                Console.WriteLine($"Покупка совершена Осталось - {player.GetMoney()} гривен");
+                _player.BuyItem(item);
+                Console.WriteLine($"Покупка совершена Осталось - {_player.GetMoney()} гривен");
             }
             else
             {
@@ -95,12 +95,12 @@ namespace Lesson_1
             }
         }
 
-        public void GetMoney(float money)
+        public void AddMoney(float money)
         {
             Money += money;
         }
 
-        public void AwayMoney(float money)
+        public void SpendMoney(float money)
         {
             Money -= money;
         }
@@ -129,7 +129,7 @@ namespace Lesson_1
                 if (Items[i].Id == id && playerMoney>= Items[i].Coast)
                 {
                     item = Items[i];
-                    GetMoney(Items[i].Coast);
+                    AddMoney(Items[i].Coast);
                     Items.RemoveAt(i);
                     break;
                 }
@@ -145,7 +145,7 @@ namespace Lesson_1
         public void BuyItem(Item item)
         {
             Items.Add(item);
-            AwayMoney(item.Coast);
+            SpendMoney(item.Coast);
         }
 
         public float GetMoney()
