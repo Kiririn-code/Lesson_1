@@ -15,7 +15,6 @@ namespace Lesson_1
 
             while (isProgramRun)
             {
-
                 switch (int.Parse(Console.ReadLine()))
                 {
                     case 1:
