@@ -10,167 +10,93 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Shop shop = new Shop();
+            Hospital hospital = new Hospital();
             bool isProgramRun = true;
-            string userChoise;
+
             while (isProgramRun)
             {
-                userChoise = Console.ReadLine();
-                switch (userChoise)
+
+                switch (int.Parse(Console.ReadLine()))
                 {
-                    case "add":
-                        shop.AddItems();
+                    case 1:
+                        Console.WriteLine("Отсортированный по ФИО список бльных");
+                        hospital.SortSickAtPersonalData();
                         break;
-                    case "show":
-                        shop.ShowItems();
+                    case 2:
+                        Console.WriteLine("Отсортированный по возрасту список больных");
+                        hospital.SortSickAtAge();
                         break;
-                    case "buy":
-                        shop.BuyItem();
+                    case 3:
+                        Console.Write("Введите заболевание");
+                        string disease = Console.ReadLine();
+                        Console.Clear();
+                        Console.WriteLine("Cписок больных с "+ disease);
+                        hospital.FindSickAtDisease(disease);
                         break;
-                    case "inv":
-                        shop.ShowInventory();
-                        break;
-                    case "ext":
-                        isProgramRun = false;
+                    case 4:
                         break;
                 }
             }
         }
-
     }
 
-    class Shop
+    class Hospital
     {
-       private Vendor _vendor = new Vendor(1000);
-       private Player _player = new Player(300);
+        private List<Sick> _sicks = new List<Sick>();
 
-
-        public void AddItems()
+        public Hospital()
         {
-            _vendor.AddItems();
+            _sicks.Add(new Sick(1, "Петров Егор Сергеевич", "Шизофрения"));
+            _sicks.Add(new Sick(20, "Егоров Сергей Петрович", "Паркинсон"));
+            _sicks.Add(new Sick(34, "Сергеевич Петр Егорович", "Грипп"));
+            _sicks.Add(new Sick(9, "Литвинов Александр Викторович", "Перелом"));
+            _sicks.Add(new Sick(18, "Можайский Виктор Александрович", "Ковид"));
+            _sicks.Add(new Sick(66, "Старый Андрей Васильевич", "Ковид"));
+            _sicks.Add(new Sick(11, "Молодой Василий Андреевич", "Грипп"));
+            _sicks.Add(new Sick(8, "Маленький Больной Ребенок", "Карликовость"));
+            _sicks.Add(new Sick(23, "Аонстантинов Николай Константинович", "Тонзилит"));
+            _sicks.Add(new Sick(32, "Запашный Эдвард Григорьевич", "Невроз"));
+            _sicks.Add(new Sick(32, "Запашный Дмитрий Григорьевич", "Невроз"));
         }
 
-        public void ShowItems()
+        private void ShowList(List<Sick> newList)
         {
-            _vendor.ShowItem();
-        }
-
-        public void ShowInventory()
-        {
-            _player.ShowItem();
-        }
-
-        public void BuyItem()
-        {
-            Console.Write("Id: ");
-            int id = int.Parse(Console.ReadLine());
-            Item item = _vendor.GetItem(id, (_player.GetMoney()));
-            if (item != null && _player.GetMoney() >= item.Coast)
+            foreach (var sick in newList)
             {
-                _player.BuyItem(item);
-                Console.WriteLine($"Покупка совершена Осталось - {_player.GetMoney()} гривен");
-            }
-            else
-            {
-                Console.WriteLine("Ошибка,проверьте правильность введенных данных");
-            }
-        }
-    }
-
-    abstract class Human
-    {
-        protected float Money {get; private set; }
-        protected List<Item> Items = new List<Item>();
-
-        public Human(int money)
-        {
-            Money = money;
-        }
-
-        public void ShowItem()
-        {
-            for (int i = 0; i < Items.Count; i++)
-            {
-                Items[i].ShowStats();
+                Console.WriteLine(sick.PersonalData + " Лежит с заболеванием: " + sick.Disease + " и ему " + sick.Age + " лет");
             }
         }
 
-        public void AddMoney(float money)
+        public void SortSickAtAge()
         {
-            Money += money;
+            var newList = _sicks.OrderByDescending(sick => sick.Age).ToList();
+            ShowList(newList);
         }
 
-        public void SpendMoney(float money)
+        public void SortSickAtPersonalData()
         {
-            Money -= money;
-        }
-    }
-
-    class Vendor : Human
-    {
-        private int _id;
-
-        public Vendor(int money) : base(money) { }
-
-        public void AddItems()
-        {
-            Console.Write("name: ");
-            string itemName = Console.ReadLine();
-            Console.Write("Coast: ");
-            int coast = int.Parse(Console.ReadLine());
-            Items.Add(new Item(++_id, itemName, coast));
+            var newList = _sicks.OrderBy(sick => sick.PersonalData).ToList();
+            ShowList(newList);
         }
 
-        public Item GetItem(int id,float playerMoney)
+        public void FindSickAtDisease(string disease)
         {
-            Item item =null;
-            for (int i = 0; i < Items.Count; i++)
-            {
-                if (Items[i].Id == id && playerMoney>= Items[i].Coast)
-                {
-                    item = Items[i];
-                    AddMoney(Items[i].Coast);
-                    Items.RemoveAt(i);
-                    break;
-                }
-            }
-            return item;
+            var newList = _sicks.Where(sick => sick.Disease == disease).ToList();
+            ShowList(newList);
         }
     }
 
-    class Player:Human
+    class Sick
     {
-        public Player(int money): base(money) { }
+        public int Age { get;private set; }
+        public string  PersonalData { get;private set; }
+        public string Disease { get;private set; }
 
-        public void BuyItem(Item item)
+        public Sick(int age,string personalData, string disease)
         {
-            Items.Add(item);
-            SpendMoney(item.Coast);
-        }
-
-        public float GetMoney()
-        {
-            return Money;
-        }
-    }
-
-    class Item
-    {
-        
-        private string _name;
-        public int Id { get;private set; }
-        public float Coast { get; private set; }
-
-        public Item(int id,string name,float coast)
-        {
-            Id = id;
-            _name = name;
-            Coast = coast;
-        }
-
-        public void ShowStats()
-        {
-            Console.WriteLine($"{Id} - Название: {_name} цена - {Coast} гривен");
+            Age = age;
+            PersonalData = personalData;
+            Disease = disease;
         }
     }
 }
