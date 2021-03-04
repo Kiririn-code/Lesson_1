@@ -10,159 +10,55 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            int id = 0;
-            int lvl;
-            string firstName;
-            bool isProgramRun = true;
             DataBase dataBase = new DataBase();
-            while (isProgramRun)
-            {
-                Console.WriteLine("Выберете действия");
-                string userChoise = Console.ReadLine();
-                switch (userChoise)
-                {
-                    case "add":
-                        Console.Write("Имя: ");
-                        firstName = Console.ReadLine();
-                        Console.Write("Уровень: ");
-                        lvl = int.Parse(Console.ReadLine());
-                        dataBase.AddList(firstName, lvl, ++id);
-                        break;
-                    case "ban":
-                            dataBase.Ban();
-                        break;
-                    case "unban":
-                            dataBase.Unban();
-                        break;
-                    case "del":
-                            dataBase.DeletePlayer();
-                        break;
 
-                    case "show":
-                        dataBase.ShowPlayer();
-                        break;
-
-                    case "exit":
-                        isProgramRun = false;
-                        break;
-                }
-            }
+            dataBase.FindCriminal();
         }
     }
 
     class DataBase
     {
-        private List<Player> _players = new List<Player>();
+        private List<Criminal> _criminals = new List<Criminal>();
 
-        public void ShowPlayer()
+        public DataBase()
         {
-            for (int i = 0; i < _players.Count; i++)
+            _criminals.Add(new Criminal("Лавров Геннадий Павлочич", "Кража"));
+            _criminals.Add(new Criminal("Смердюков Аннатолий Аннатольевич", "Бандитизм"));
+            _criminals.Add(new Criminal("Петров Егор Васильевич", "Убийство"));
+            _criminals.Add(new Criminal("Смирнов Васил Егорьевич", "Антиправительственное"));
+            _criminals.Add(new Criminal("Егоров Петр Смирнович", "Антиправительственное"));
+
+        }
+
+        public void FindCriminal()
+        {
+            Console.WriteLine("\tСписок всех преступников");
+
+            for (int i = 0; i < _criminals.Count; i++)
             {
-                _players[i].ShowPlayer();
+                Console.WriteLine(_criminals[i].PersonalData + " Сидит по статье: " + _criminals[i].Article);
             }
-        }
+            var draftList = _criminals.Where(criminal => criminal.Article == "Антиправительственное").ToList();
+            Console.WriteLine("");
+            var correctCriminalsList = _criminals.Except(draftList);
+            Console.WriteLine("\tСписок преступников после амнистии");
 
-        public void AddList(string firstName, int lvl, int id)
-        {
-            _players.Add(new Player(firstName, lvl, id));
-        }
-
-        public void Ban()
-        {
-            int playerID;
-            if (TryFindID(out playerID))
-                _players[playerID].Ban();
-        }
-
-        public void Unban()
-        {
-            int playerID;
-            if (TryFindID(out playerID))
-                _players[playerID].Unban();
-        }
-
-        public void DeletePlayer()
-        {
-            int playerID;
-            if (TryFindID(out playerID))
-                _players.RemoveAt(playerID);
-        }
-
-        private bool TryFindID(out int playerID)
-        {
-            bool isIndexFind = false;
-            Console.WriteLine("Введите ID игрока: ");
-            bool isConverted = int.TryParse(Console.ReadLine(), out playerID);
-            if (isConverted)
+            foreach (var criminal in correctCriminalsList)
             {
-                for (int i = 0; i < _players.Count; i++)
-                {
-                    isIndexFind = _players[i].ID == playerID;
-                    if (isIndexFind)
-                    {
-                        playerID = i;
-                        break;
-                    }
-                }
+                Console.WriteLine(criminal.PersonalData + " Cидит по статье: " + criminal.Article);
             }
-            else
-            {
-                Console.WriteLine("Проверьте введенные данные");
-            }
-            return isIndexFind;
         }
     }
 
-
-    class Player
+    class Criminal
     {
-        private string _name;
-        private int _lvl;
-        private bool _isBanned;
-        public int ID { get; private set; }
+        public string PersonalData { get;private set; }
+        public string Article { get; set; }
 
-        public Player(string name, int lvl, int id, bool isBanned = false)
+        public Criminal(string personalData,string article)
         {
-            _name = name;
-            _lvl = lvl;
-            ID = id;
-            _isBanned = isBanned;
-        }
-
-        public void ShowPlayer()
-        {
-            Console.WriteLine($"id - {ID}  flag - {GetBannedFlag()}");
-        }
-
-        private bool GetBannedFlag()
-        {
-            return _isBanned;
-        }
-
-        public void Ban()
-        {
-            if (_isBanned == false)
-            {
-                _isBanned = true;
-                Console.WriteLine("Пользователь успешно заблокирован");
-            }
-            else
-            {
-                Console.WriteLine("Пользователь уже был заблокирован");
-            }
-        }
-
-        public void Unban()
-        {
-            if (_isBanned == true)
-            {
-                _isBanned = false;
-                Console.WriteLine("Пользователь успешно разблокирован");
-            }
-            else
-            {
-                Console.WriteLine("Пользователь не заблокирован");
-            }
+            PersonalData = personalData;
+            Article = article;
         }
     }
 }
