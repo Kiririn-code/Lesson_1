@@ -12,52 +12,51 @@ namespace Lesson_1
         {
             DataBase dataBase = new DataBase();
 
-            dataBase.FindCriminal();
+            dataBase.TransportSoliders();
         }
     }
 
     class DataBase
     {
-        private List<Criminal> _criminals = new List<Criminal>();
+        private List<Solider> _firstPlatoon = new List<Solider>();
+        private List<Solider> _secondPlatoon = new List<Solider>();
 
         public DataBase()
         {
-            _criminals.Add(new Criminal("Лавров Геннадий Павлочич", "Кража"));
-            _criminals.Add(new Criminal("Смердюков Аннатолий Аннатольевич", "Бандитизм"));
-            _criminals.Add(new Criminal("Петров Егор Васильевич", "Убийство"));
-            _criminals.Add(new Criminal("Смирнов Васил Егорьевич", "Антиправительственное"));
-            _criminals.Add(new Criminal("Егоров Петр Смирнович", "Антиправительственное"));
+            _firstPlatoon.Add(new Solider("Петров"));
+            _firstPlatoon.Add(new Solider("Баширов"));
+            _firstPlatoon.Add(new Solider("Кузьмин"));
+            _firstPlatoon.Add(new Solider("Баранов"));
+            _firstPlatoon.Add(new Solider("Бойко"));
+            _firstPlatoon.Add(new Solider("Пугачев"));
+            _firstPlatoon.Add(new Solider("Березуцкий"));
+            _firstPlatoon.Add(new Solider("Абрамов"));
+            _firstPlatoon.Add(new Solider("Яйцев"));
 
+            _secondPlatoon.Add(new Solider("Авдаченок"));
+            _secondPlatoon.Add(new Solider("Лебедев"));
+            _secondPlatoon.Add(new Solider("Максимоа"));
+            _secondPlatoon.Add(new Solider("Пасечник"));
         }
 
-        public void FindCriminal()
+        public void TransportSoliders()
         {
-            Console.WriteLine("\tСписок всех преступников");
+            var correctPlatoon =_secondPlatoon.Union(_firstPlatoon.Where(solider => solider.Surname.StartsWith("Б"))).OrderBy(solider=> solider.Surname);
 
-            for (int i = 0; i < _criminals.Count; i++)
+            foreach (var solider in correctPlatoon)
             {
-                Console.WriteLine(_criminals[i].PersonalData + " Сидит по статье: " + _criminals[i].Article);
-            }
-            Console.WriteLine("");
-            var correctCriminalsList = _criminals.Except(_criminals.Where(criminal => criminal.Article == "Антиправительственное")).ToList();
-            Console.WriteLine("\tСписок преступников после амнистии");
-
-            foreach (var criminal in correctCriminalsList)
-            {
-                Console.WriteLine(criminal.PersonalData + " Cидит по статье: " + criminal.Article);
+                Console.WriteLine(solider.Surname);
             }
         }
     }
 
-    class Criminal
+    class Solider
     {
-        public string PersonalData { get;private set; }
-        public string Article { get; set; }
+        public string Surname { get;private set; }
 
-        public Criminal(string personalData,string article)
+        public Solider(string surname)
         {
-            PersonalData = personalData;
-            Article = article;
+            Surname = surname;
         }
     }
 }
