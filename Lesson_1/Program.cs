@@ -38,9 +38,8 @@ namespace Lesson_1
             {
                 Console.WriteLine(_criminals[i].PersonalData + " Сидит по статье: " + _criminals[i].Article);
             }
-            var draftList = _criminals.Where(criminal => criminal.Article == "Антиправительственное").ToList();
             Console.WriteLine("");
-            var correctCriminalsList = _criminals.Except(draftList);
+            var correctCriminalsList = _criminals.Except(_criminals.Where(criminal => criminal.Article == "Антиправительственное")).ToList();
             Console.WriteLine("\tСписок преступников после амнистии");
 
             foreach (var criminal in correctCriminalsList)
