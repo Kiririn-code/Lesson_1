@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Lesson_1
 {
@@ -10,92 +8,54 @@ namespace Lesson_1
     {
         static void Main(string[] args)
         {
-            Hospital hospital = new Hospital();
-            bool isProgramRun = true;
+            DataBase dataBase = new DataBase();
 
-            while (isProgramRun)
+            dataBase.FindCriminal();
+        }
+    }
+
+    class DataBase
+    {
+        private List<Criminal> _criminals = new List<Criminal>();
+
+        public DataBase()
+        {
+            _criminals.Add(new Criminal("Лавров Геннадий Павлочич", "Кража"));
+            _criminals.Add(new Criminal("Смердюков Аннатолий Аннатольевич", "Бандитизм"));
+            _criminals.Add(new Criminal("Петров Егор Васильевич", "Убийство"));
+            _criminals.Add(new Criminal("Смирнов Васил Егорьевич", "Антиправительственное"));
+            _criminals.Add(new Criminal("Егоров Петр Смирнович", "Антиправительственное"));
+
+        }
+
+        public void FindCriminal()
+        {
+            Console.WriteLine("\tСписок всех преступников");
+
+            for (int i = 0; i < _criminals.Count; i++)
             {
-                switch (int.Parse(Console.ReadLine()))
-                {
-                    case 1:
-                        Console.WriteLine("Отсортированный по ФИО список бльных");
-                        hospital.SortSickAtPersonalData();
-                        break;
-                    case 2:
-                        Console.WriteLine("Отсортированный по возрасту список больных");
-                        hospital.SortSickAtAge();
-                        break;
-                    case 3:
-                        Console.Write("Введите заболевание");
-                        string disease = Console.ReadLine();
-                        Console.Clear();
-                        Console.WriteLine("Cписок больных с "+ disease);
-                        hospital.FindSickAtDisease(disease);
-                        break;
-                    case 4:
-                        break;
-                }
+                Console.WriteLine(_criminals[i].PersonalData + " Сидит по статье: " + _criminals[i].Article);
+            }
+            Console.WriteLine("");
+            var correctCriminalsList = _criminals.Except(_criminals.Where(criminal => criminal.Article == "Антиправительственное"));
+            Console.WriteLine("\tСписок преступников после амнистии");
+
+            foreach (var criminal in correctCriminalsList)
+            {
+                Console.WriteLine(criminal.PersonalData + " Cидит по статье: " + criminal.Article);
             }
         }
     }
 
-    class Hospital
+    class Criminal
     {
-        private List<Sick> _sicks = new List<Sick>();
+        public string PersonalData { get; private set; }
+        public string Article { get; set; }
 
-        public Hospital()
+        public Criminal(string personalData, string article)
         {
-            _sicks.Add(new Sick(1, "Петров Егор Сергеевич", "Шизофрения"));
-            _sicks.Add(new Sick(20, "Егоров Сергей Петрович", "Паркинсон"));
-            _sicks.Add(new Sick(34, "Сергеевич Петр Егорович", "Грипп"));
-            _sicks.Add(new Sick(9, "Литвинов Александр Викторович", "Перелом"));
-            _sicks.Add(new Sick(18, "Можайский Виктор Александрович", "Ковид"));
-            _sicks.Add(new Sick(66, "Старый Андрей Васильевич", "Ковид"));
-            _sicks.Add(new Sick(11, "Молодой Василий Андреевич", "Грипп"));
-            _sicks.Add(new Sick(8, "Маленький Больной Ребенок", "Карликовость"));
-            _sicks.Add(new Sick(23, "Аонстантинов Николай Константинович", "Тонзилит"));
-            _sicks.Add(new Sick(32, "Запашный Эдвард Григорьевич", "Невроз"));
-            _sicks.Add(new Sick(32, "Запашный Дмитрий Григорьевич", "Невроз"));
-        }
-
-        private void ShowList(List<Sick> newList)
-        {
-            foreach (var sick in newList)
-            {
-                Console.WriteLine(sick.PersonalData + " Лежит с заболеванием: " + sick.Disease + " и ему " + sick.Age + " лет");
-            }
-        }
-
-        public void SortSickAtAge()
-        {
-            var newList = _sicks.OrderByDescending(sick => sick.Age).ToList();
-            ShowList(newList);
-        }
-
-        public void SortSickAtPersonalData()
-        {
-            var newList = _sicks.OrderBy(sick => sick.PersonalData).ToList();
-            ShowList(newList);
-        }
-
-        public void FindSickAtDisease(string disease)
-        {
-            var newList = _sicks.Where(sick => sick.Disease == disease).ToList();
-            ShowList(newList);
-        }
-    }
-
-    class Sick
-    {
-        public int Age { get;private set; }
-        public string  PersonalData { get;private set; }
-        public string Disease { get;private set; }
-
-        public Sick(int age,string personalData, string disease)
-        {
-            Age = age;
             PersonalData = personalData;
-            Disease = disease;
+            Article = article;
         }
     }
 }
