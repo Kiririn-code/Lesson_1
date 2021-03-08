@@ -41,9 +41,10 @@ namespace Lesson_1
 
         public void TransportSoliders()
         {
-            var correctPlatoon =_secondPlatoon.Union(_firstPlatoon.Where(solider => solider.Surname.StartsWith("Б"))).OrderBy(solider=> solider.Surname);
+            _secondPlatoon = _secondPlatoon.Union(_firstPlatoon.Where(solider => solider.Surname.StartsWith("Б"))).ToList();
+            _firstPlatoon = _firstPlatoon.Except(_firstPlatoon.Where(solider => solider.Surname.StartsWith("Б"))).ToList();
 
-            foreach (var solider in correctPlatoon)
+            foreach (var solider in _secondPlatoon)
             {
                 Console.WriteLine(solider.Surname);
             }
