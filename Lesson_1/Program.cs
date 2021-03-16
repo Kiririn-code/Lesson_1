@@ -17,11 +17,12 @@ namespace Lesson_1
 
     class Market
     {
-        private Queue<Person> _people = new Queue<Person>();
-        private Random _random = new Random();
+        private Queue<Person> _people;
+        private Random _random;
 
         public Market()
         {
+            _people = new Queue<Person>();
             _random = new Random();
 
             for (int i = 0; i < 6; i++)
