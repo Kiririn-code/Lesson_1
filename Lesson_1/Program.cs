@@ -11,4 +11,9 @@ namespace Lesson_1
 
         }
     }
+
+    class Train
+    {
+
+    }
 }
