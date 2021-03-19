@@ -90,6 +90,7 @@ namespace Lesson_1
             int numberOfPeople = random.Next(200, 500);
             int numberOfOccupedVagon = numberOfPeople / 50;
             Console.WriteLine($"На поезд Байск - Барнаул заявлено {numberOfPeople} пассажиров");
+
             for (int i = 0; i <= numberOfOccupedVagon; i++)
             {
                 if (numberOfPeople >=50)
@@ -104,7 +105,6 @@ namespace Lesson_1
             }
             _isFull = true;
         }
-
     }
 
     class Vagon
