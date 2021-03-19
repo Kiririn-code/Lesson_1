@@ -15,7 +15,7 @@ namespace Lesson_1
 
     class Station
     {
-        private List<Vagon> _trains;
+        private List<Vagon> _vagons;
         private bool _isCreated;
         private bool _isFull;
 
@@ -23,20 +23,22 @@ namespace Lesson_1
         {
             _isCreated = false;
             _isFull = false;
-            _trains = new List<Vagon>();
+            _vagons = new List<Vagon>();
 
         }
 
         public void DoWork()
         {
             bool isProgramRun = true;
+            string firstStop="";
+            string secondStop="";
             while (isProgramRun)
             {
 
                 if (_isCreated && _isFull)
-                    Console.WriteLine($"Поезд из {_trains.Count} вагонов готов к отправке по маршруту Байск - Барнаул\n");
+                    Console.WriteLine($"Поезд из {_vagons.Count} вагонов готов к отправке по маршруту {firstStop} - {secondStop}\n");
                 else if (_isCreated)
-                    Console.WriteLine("Поезд Байск - Барнаул ожидает пассажиров на перроне\n");
+                    Console.WriteLine($"Поезд {firstStop} - {secondStop} ожидает пассажиров на перроне\n");
                 else
                     Console.WriteLine("Информация не доступна\n");
 
@@ -49,17 +51,23 @@ namespace Lesson_1
                 switch (userChiose)
                 {
                     case 1:
-                        if (_isCreated==false)
-                            CreateDirection();
+                        if (_isCreated == false)
+                        {
+                            Console.Write("Куда хотите отправится: ");
+                            firstStop = Console.ReadLine();
+                            Console.Write("Откуда хотите отправится: ");
+                            secondStop = Console.ReadLine();
+                            CreateDirection(firstStop, secondStop);
+                        }
                         break;
                     case 2:
-                        if (_isFull ==false && _isCreated == true)
-                            GetPerson();
+                        if (_isFull ==false && _isCreated)
+                            CreatePerson();
                         break;
                     case 3:
                         if (_isCreated && _isFull)
                         {
-                            _trains.Clear();
+                            _vagons.Clear();
                             Console.WriteLine("Поезд усешно отправлен");
                             _isCreated = false;
                             _isFull = false;
@@ -77,30 +85,30 @@ namespace Lesson_1
             }
         }
 
-        private void CreateDirection()
+        private void CreateDirection(string firstStop, string secondStop)
         {
-            Console.WriteLine("Поезд проследует по маршруту Байск - Барнаул");
+            Console.WriteLine($"Поезд проследует по маршруту {firstStop} - {secondStop}");
             _isCreated = true;
         }
 
-        private void GetPerson()
+        private void CreatePerson()
         {
             Random random = new Random();
 
             int numberOfPeople = random.Next(200, 500);
             int numberOfOccupedVagon = numberOfPeople / 50;
-            Console.WriteLine($"На поезд Байск - Барнаул заявлено {numberOfPeople} пассажиров");
+            Console.WriteLine($"На поезд заявлено {numberOfPeople} пассажиров");
 
             for (int i = 0; i <= numberOfOccupedVagon; i++)
             {
                 if (numberOfPeople >=50)
                 {
-                    _trains.Add(new Vagon(50));
+                    _vagons.Add(new Vagon(50));
                     numberOfPeople -= 50;
                 }
                 else
                 {
-                    _trains.Add(new Vagon(numberOfPeople));
+                    _vagons.Add(new Vagon(numberOfPeople));
                 }
             }
             _isFull = true;
